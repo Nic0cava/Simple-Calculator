@@ -35,16 +35,27 @@ def get_operator():
                 print(f"Error: {e}")
     return operator
 
-def check_if_zero_for_denominator():
+def get_num2():
     while True:
         try:
             num2 = float(input("What is the next number?: "))
             if num2 == 0:
                 raise ZeroDivisionError("Cannot divide by zero! Please enter a different denominator.")
             break
-        except ZeroDivisionError as e:
+        except ZeroDivisionError as e: # catches if user input is 0 for num2
             print(f"Error: {e}")
+        except ValueError:
+            print("Error: Please enter a valid numbers.")
     return num2
+
+def get_num1():
+    while True:
+        try:
+            num1 = float(input("What is the first number?: "))
+            break
+        except ValueError:
+            print("Error: Please enter a valid numbers.")
+    return num1
 
 operations = {"+": add,
               "-": subtract,
@@ -65,15 +76,15 @@ print(art)
 print("Welcome to this simple calculator app!")
 def calculator():
     should_accumulate = True
-    num1 = float(input("What is the first number?: "))
+    num1 = get_num1()
 
     while should_accumulate:
         for symbol in operations:
             print(symbol)
 
-        operator = get_operator() # gets the operator from user
+        operator = get_operator()
 
-        num2 = check_if_zero_for_denominator() # catches if user input is 0 for num2
+        num2 = get_num2()
         answer = operations[operator](num1, num2)
         print(f"{num1} {operator} {num2} = {answer}")
 
